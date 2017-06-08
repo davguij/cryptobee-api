@@ -3,7 +3,7 @@
 const Hapi = require('hapi');
 const http = require('axios');
 const httpConfig = {
-	timeout: 1000
+	// timeout: 1000
 }
 
 // Create a server with a host and port
