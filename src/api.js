@@ -27,14 +27,13 @@ server.route({
 	path: '/balance',
 	handler: function (request, reply) {
 		const payload = request.payload;
-		let serviceResp = () => {
+		return reply(function () {
 			return http.get('https://api.blockcypher.com/v1/btc/main/addrs/115HrrVServkAJCftWsBMPLb6S3jBAQM7y/balance')
-				.then((resp) => {
+				.then(function (resp) {
 					console.log(resp);
-					return resp;
-				});
-		};
-		return reply(serviceResp);
+					return 'hey';
+				})
+		});
 	}
 });
 
