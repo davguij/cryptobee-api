@@ -26,7 +26,10 @@ server.route({
 		const btcAddresses = request.payload.btc;
 		let allBTCRequests = [];
 		btcAddresses.forEach((address) => {
-			let request = http.get(`https://api.blockcypher.com/v1/btc/main/addrs/${address}/balance`);
+			let request = http.get(`https://api.blockcypher.com/v1/btc/main/addrs/${address}/balance`)
+				.then(response => {
+					return response.data;
+				});
 			allBTCRequests.push(request);
 		}, this);
 		http.all(allBTCRequests).then((results) => {
