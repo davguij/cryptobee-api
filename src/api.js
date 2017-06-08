@@ -23,14 +23,15 @@ server.route({
 	method: 'POST',
 	path: '/balance',
 	handler: function (request, reply) {
-		const payload = request.payload;
-		http.get('https://api.blockcypher.com/v1/btc/main/addrs/115HrrVServkAJCftWsBMPLb6S3jBAQM7y/balance')
-			.then((resp) => {
-				return reply(resp.data);
-			})
-			.catch((err) => {
-				return reply(err);
-			});
+		const btcAddresses = request.payload.btc;
+		let allBTCRequests = [];
+		btcAddresses.forEach((address) => {
+			let request = http.get(`https://api.blockcypher.com/v1/btc/main/addrs/${address}/balance`);
+			allBTCRequests.push(request);
+		}, this);
+		http.all(allBTCRequests).then((results) => {
+			return reply(results);
+		});
 	}
 });
 
