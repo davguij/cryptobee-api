@@ -37,8 +37,8 @@ server.route({
 		}, this);
 		http.all(allBTCRequests).then((addressBalances) => {
 			let totalBalance = 0;
-			addressBalances.forEach((balance) => {
-				totalBalance += balance.final_balance;
+			addressBalances.forEach((balanceForAddress) => {
+				totalBalance += balanceForAddress.balance;
 			}, this);
 			return reply({
 				balance: totalBalance,
