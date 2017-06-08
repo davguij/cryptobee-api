@@ -1,0 +1,26 @@
+{
+  "name": "cryptobee-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "start": "nodemon ./src/api"
+  },
+  "author": "",
+  "license": "ISC",
+  "engines": {
+    "node": ">=7.6.0",
+    "npm": "5.0.x"
+  },
+  "dependencies": {
+    "axios": "^0.16.2",
+    "hapi": "^16.4.2"
+  },
+  "devDependencies": {
+    "eslint": "^3.19.0",
+    "eslint-plugin-node": "^5.0.0",
+    "jest": "^20.0.4",
+    "nodemon": "^1.11.0"
+  }
+}
