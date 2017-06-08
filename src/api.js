@@ -2,9 +2,6 @@
 
 const Hapi = require('hapi');
 const http = require('axios');
-const httpConfig = {
-	// timeout: 1000
-}
 
 // Create a server with a host and port
 const server = new Hapi.Server();
@@ -27,13 +24,13 @@ server.route({
 	path: '/balance',
 	handler: function (request, reply) {
 		const payload = request.payload;
-		return reply(function () {
-			return http.get('https://api.blockcypher.com/v1/btc/main/addrs/115HrrVServkAJCftWsBMPLb6S3jBAQM7y/balance')
-				.then(function (resp) {
-					console.log(resp);
-					return 'hey';
-				})
-		});
+		http.get('https://api.blockcypher.com/v1/btc/main/addrs/115HrrVServkAJCftWsBMPLb6S3jBAQM7y/balance')
+			.then((resp) => {
+				return reply(resp.data);
+			})
+			.catch((err) => {
+				return reply(err);
+			});
 	}
 });
 
