@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "start": "nodemon ./src/api"
+    "start": "node ./src/api"
   },
   "author": "",
   "license": "ISC",
@@ -20,7 +20,7 @@
   "devDependencies": {
     "eslint": "^3.19.0",
     "eslint-plugin-node": "^5.0.0",
-    "jest": "^20.0.4",
-    "nodemon": "^1.11.0"
-  }
+    "jest": "^20.0.4"
+  },
+  "false": {}
 }
