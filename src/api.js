@@ -22,24 +22,18 @@ server.route({
 	}
 });
 
-async function getBalance(coins) {
-	let r;
-	try {
-		r = await http.get('https://api.blockcypher.com/v1/btc/main/addrs/115HrrVServkAJCftWsBMPLb6S3jBAQM7y/balance', httpConfig);
-	} catch (err) {
-		console.log('Error!');
-		console.log(err);
-		r = err;
-	}
-	return await r;
-}
-
 server.route({
 	method: 'POST',
 	path: '/balance',
-	handler: async function (request, reply) {
+	handler: function (request, reply) {
 		const payload = request.payload;
-		let serviceResp = await getBalance(payload);
+		let serviceResp = () => {
+			return http.get('https://api.blockcypher.com/v1/btc/main/addrs/115HrrVServkAJCftWsBMPLb6S3jBAQM7y/balance')
+				.then((resp) => {
+					console.log(resp);
+					return resp;
+				});
+		};
 		return reply(serviceResp);
 	}
 });
