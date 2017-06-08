@@ -28,12 +28,22 @@ server.route({
 		btcAddresses.forEach((address) => {
 			let request = http.get(`https://api.blockcypher.com/v1/btc/main/addrs/${address}/balance`)
 				.then(response => {
-					return response.data;
+					return {
+						address: response.data.address,
+						balance: response.data.final_balance
+					};
 				});
 			allBTCRequests.push(request);
 		}, this);
-		http.all(allBTCRequests).then((results) => {
-			return reply(results);
+		http.all(allBTCRequests).then((addressBalances) => {
+			let totalBalance = 0;
+			addressBalances.forEach((balance) => {
+				totalBalance += balance.final_balance;
+			}, this);
+			return reply({
+				balance: totalBalance,
+				addresses: addressBalances
+			});
 		});
 	}
 });
