@@ -21,7 +21,7 @@ server.route({
 server.route({
 	method: 'POST',
 	path: '/balance',
-	handler: async function (request, reply) {
+	handler: function (request, reply) {
 		reply(balance.getBalance(request));
 	}
 });
