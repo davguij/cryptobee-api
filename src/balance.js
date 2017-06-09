@@ -6,10 +6,10 @@ function getBalance(request) {
 	let allBTCRequests = [];
 	btcAddresses.forEach((address) => {
 		let request = http.get(`https://api.blockcypher.com/v1/btc/main/addrs/${address}/balance`)
-			.then(response => {
+			.then(data => {
 				return {
-					address: response.address,
-					balance: response.final_balance
+					address: data.address,
+					balance: data.final_balance
 				};
 			});
 		allBTCRequests.push(request);
