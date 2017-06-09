@@ -1,8 +1,7 @@
 'use strict';
 
 const Hapi = require('hapi');
-const http = require('axios');
-
+const balance = require('./balance');
 // Create a server with a host and port
 const server = new Hapi.Server();
 server.connection({
@@ -22,30 +21,7 @@ server.route({
 server.route({
 	method: 'POST',
 	path: '/balance',
-	handler: function (request, reply) {
-		const btcAddresses = request.payload.btc;
-		let allBTCRequests = [];
-		btcAddresses.forEach((address) => {
-			let request = http.get(`https://api.blockcypher.com/v1/btc/main/addrs/${address}/balance`)
-				.then(response => {
-					return {
-						address: response.data.address,
-						balance: response.data.final_balance
-					};
-				});
-			allBTCRequests.push(request);
-		}, this);
-		http.all(allBTCRequests).then((addressBalances) => {
-			let totalBalance = 0;
-			addressBalances.forEach((balanceForAddress) => {
-				totalBalance += balanceForAddress.balance;
-			}, this);
-			return reply({
-				balance: totalBalance,
-				addresses: addressBalances
-			});
-		});
-	}
+	handler: balance.getBalance
 });
 
 // Start the server
