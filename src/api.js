@@ -23,7 +23,9 @@ server.route({
 	path: '/balance',
 	handler: function (request, reply) {
 		balance.getBalance(request)
-			.then((serviceResponse) => reply(serviceResponse));
+			.then((serviceResponse) => {
+				reply(serviceResponse);
+			});
 	}
 });
 
