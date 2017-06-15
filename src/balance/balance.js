@@ -1,4 +1,4 @@
-const http = require('./common/http');
+const http = require('../common/http');
 const axios = require('axios');
 
 function getBalance(coin, addresses) {

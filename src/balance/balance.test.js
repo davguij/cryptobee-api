@@ -1,4 +1,4 @@
-jest.mock('./common/http');
+jest.mock('../common/http');
 
 const balance = require('./balance');
 
