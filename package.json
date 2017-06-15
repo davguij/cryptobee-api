@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --watch --coverage",
+    "test": "jest --coverage",
+    "test-dev": "jest --watch --coverage",
     "start": "node ./src/api"
   },
   "author": "",
