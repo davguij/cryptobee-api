@@ -1,7 +1,8 @@
 'use strict';
 
 const Hapi = require('hapi');
-const balance = require('./balance');
+const balance = require('./balance/balance');
+const rates = require('./exchange-rates/exchange-rates')
 // Create a server with a host and port
 const server = new Hapi.Server();
 server.connection({
@@ -25,6 +26,14 @@ server.route({
 		reply(balance.getBalance(encodeURIComponent(request.params.coin), request.payload.addresses));
 	}
 });
+
+server.route({
+	method: 'GET',
+	path: '/rates/{coin}',
+	handler: function (request, reply) {
+		reply(rates.getRates(encodeURIComponent(request.params.coin)));
+	}
+})
 
 // Start the server
 server.start((err) => {

@@ -1,4 +1,4 @@
-const mock = {
+const balanceMock = {
 	"115HrrVServkAJCftWsBMPLb6S3jBAQM7y": {
 		"address": "115HrrVServkAJCftWsBMPLb6S3jBAQM7y",
 		"total_received": 359280,
@@ -23,13 +23,36 @@ const mock = {
 	}
 };
 
+const ratesMock = [
+	{
+		"ask": "0.00012294",
+		"bid": "0.0001227",
+		"currency": "BTC",
+		"pair": "AEDBTC"
+	},
+	{
+		"ask": "0.00002833",
+		"bid": "0.00002828",
+		"currency": "BTC",
+		"pair": "ARSBTC"
+	},
+	{
+		"ask": "0.00034244",
+		"bid": "0.00034183",
+		"currency": "BTC",
+		"pair": "AUDBTC"
+	}
+];
+
 function get(url) {
 	return new Promise((resolve) => {
 		process.nextTick(() => {
 			if (url.includes("115HrrVServkAJCftWsBMPLb6S3jBAQM7y")) {
-				return resolve(mock["115HrrVServkAJCftWsBMPLb6S3jBAQM7y"]);
+				return resolve(balanceMock["115HrrVServkAJCftWsBMPLb6S3jBAQM7y"]);
 			} else if (url.includes("1F1tAaz5x1HUXrCNLbtMDqcw6o5GNn4xqX")) {
-				return resolve(mock["1F1tAaz5x1HUXrCNLbtMDqcw6o5GNn4xqX"]);
+				return resolve(balanceMock["1F1tAaz5x1HUXrCNLbtMDqcw6o5GNn4xqX"]);
+			} else if (url.includes('/ticker/')) {
+				return resolve(ratesMock);
 			}
 		})
 	});
