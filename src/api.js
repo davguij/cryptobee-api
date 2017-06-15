@@ -20,9 +20,9 @@ server.route({
 
 server.route({
 	method: 'POST',
-	path: '/balance',
+	path: '/balance/{coin}',
 	handler: function (request, reply) {
-		reply(balance.getBalance(request));
+		reply(balance.getBalance(encodeURIComponent(request.params.coin), request.payload.addresses));
 	}
 });
 

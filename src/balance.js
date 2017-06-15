@@ -1,27 +1,26 @@
 const http = require('./common/http');
 const axios = require('axios');
 
-function getBalance(request) {
-	const btcAddresses = request.payload.btc;
-	let allBTCRequests = [];
-	btcAddresses.forEach((address) => {
-		let request = http.get(`https://api.blockcypher.com/v1/btc/main/addrs/${address}/balance`)
+function getBalance(coin, addresses) {
+	let allReqs = [];
+	addresses.forEach((address) => {
+		let request = http.get(`https://api.blockcypher.com/v1/${coin}/main/addrs/${address}/balance`)
 			.then(data => {
 				return {
 					address: data.address,
 					balance: data.final_balance
 				};
 			});
-		allBTCRequests.push(request);
+		allReqs.push(request);
 	}, this);
-	return axios.all(allBTCRequests).then((addressBalances) => {
-		let serviceResponse = {};
-		serviceResponse.totalBalance = 0;
+	return axios.all(allReqs).then((addressBalances) => {
+		let balanceResponse = {};
+		balanceResponse.totalBalance = 0;
 		addressBalances.forEach((balanceForAddress) => {
-			serviceResponse.totalBalance += balanceForAddress.balance;
+			balanceResponse.totalBalance += balanceForAddress.balance;
 		}, this);
-		serviceResponse.addresses = addressBalances;
-		return serviceResponse;
+		balanceResponse.addresses = addressBalances;
+		return balanceResponse;
 	});
 }
 
