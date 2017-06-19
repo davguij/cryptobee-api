@@ -1,6 +1,8 @@
 'use strict';
 
 const Hapi = require('hapi');
+const Joi = require('joi');
+
 const balance = require('./balance/balance');
 const rates = require('./exchange-rates/exchange-rates')
 // Create a server with a host and port
@@ -24,6 +26,16 @@ server.route({
 	path: '/balance/{coin}',
 	handler: function (request, reply) {
 		reply(balance.getBalance(encodeURIComponent(request.params.coin), request.payload.addresses));
+	},
+	config: {
+		validate: {
+			params: {
+				coin: Joi.string().only(['btc', 'ltc, eth'])
+			},
+			payload: {
+				addresses: Joi.array().items(Joi.string().min(34).max(42)).unique()
+			}
+		}
 	}
 });
 
@@ -32,7 +44,15 @@ server.route({
 	path: '/rates/{coin}',
 	handler: function (request, reply) {
 		reply(rates.getRates(encodeURIComponent(request.params.coin)));
+	},
+	config: {
+		validate: {
+			params: {
+				coin: Joi.string().only(['btc', 'ltc, eth'])
+			}
+		}
 	}
+
 })
 
 // Start the server
