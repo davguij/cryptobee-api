@@ -16,7 +16,8 @@
   },
   "dependencies": {
     "axios": "^0.16.2",
-    "hapi": "^16.4.2"
+    "hapi": "^16.4.2",
+    "joi": "^10.5.2"
   },
   "devDependencies": {
     "eslint": "^3.19.0",
