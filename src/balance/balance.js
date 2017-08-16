@@ -17,7 +17,12 @@ function getBalance(coin, addresses) {
 		let balanceResponse = {};
 		balanceResponse.totalBalance = 0;
 		addressBalances.forEach((balanceForAddress) => {
-			balanceResponse.totalBalance += balanceForAddress.balance;
+			// the API returns always the lowest indivisible unit for each coin, but we want whole coins to display
+			if (coin === 'eth') {
+				balanceResponse.totalBalance += (balanceForAddress.balance / 1000000000000000000);
+			} else {
+				balanceResponse.totalBalance += (balanceForAddress.balance / 100000000);
+			}
 		}, this);
 		balanceResponse.addresses = addressBalances;
 		return balanceResponse;
