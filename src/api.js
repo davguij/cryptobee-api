@@ -12,6 +12,13 @@ server.connection({
 	port: process.env.PORT || 8888
 });
 
+server.register({
+	register: require('hapi-cors'),
+	options: {
+		origins: ['http://localhost:8080']
+	}
+});
+
 // Add the route
 server.route({
 	method: 'GET',
@@ -30,7 +37,7 @@ server.route({
 	config: {
 		validate: {
 			params: {
-				coin: Joi.string().only(['btc', 'ltc, eth'])
+				coin: Joi.string().only(['btc', 'ltc', 'eth'])
 			},
 			payload: {
 				addresses: Joi.array().items(Joi.string().min(34).max(42)).unique()
@@ -48,12 +55,11 @@ server.route({
 	config: {
 		validate: {
 			params: {
-				coin: Joi.string().only(['btc', 'ltc, eth'])
+				coin: Joi.string().only(['btc', 'ltc', 'eth'])
 			}
 		}
 	}
-
-})
+});
 
 // Start the server
 server.start((err) => {
