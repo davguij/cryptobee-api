@@ -37,7 +37,7 @@ server.route({
 	config: {
 		validate: {
 			params: {
-				coin: Joi.string().only(['btc', 'ltc', 'eth'])
+				coin: Joi.string().only(['btc', 'ltc', 'eth', 'doge', 'dash'])
 			},
 			payload: {
 				addresses: Joi.array().items(Joi.string().min(34).max(42)).unique()
@@ -55,7 +55,7 @@ server.route({
 	config: {
 		validate: {
 			params: {
-				coin: Joi.string().only(['btc', 'ltc', 'eth'])
+				coin: Joi.string().only(['btc', 'ltc', 'eth', 'doge', 'dash'])
 			}
 		}
 	}
