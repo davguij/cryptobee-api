@@ -12,7 +12,7 @@ test('gets BTC balance from one address', () => {
 	};
 
 	const expected = {
-		totalBalance: 100000,
+		totalBalance: 0.001,
 		addresses:
 		[{
 			address: '115HrrVServkAJCftWsBMPLb6S3jBAQM7y',
@@ -33,7 +33,7 @@ test('gets BTC balance from several addresses', () => {
 		}
 	};
 	const expected = {
-		"totalBalance": 1736917974,
+		"totalBalance": 17.36917974,
 		"addresses": [
 			{
 				"address": "115HrrVServkAJCftWsBMPLb6S3jBAQM7y",
@@ -47,4 +47,23 @@ test('gets BTC balance from several addresses', () => {
 	};
 
 	return expect(balance.getBalance('btc', request.payload.addresses)).resolves.toEqual(expected);
-})
+});
+
+test('gets ETH balance in the proper format', () => {
+	const request = {
+		"payload": {
+			"addresses": [
+				"0x738d145fAAbb1E00Cf5A017588A9C0F998318012"
+			]
+		}
+	};
+	const expected = {
+		totalBalance: 1,
+		addresses:
+		[{
+			address: '0x738d145fAAbb1E00Cf5A017588A9C0F998318012',
+			balance: 1000000000000000000
+		}]
+	};
+	return expect(balance.getBalance('eth', request.payload.addresses)).resolves.toEqual(expected);	
+});
