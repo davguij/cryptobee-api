@@ -15,7 +15,7 @@ server.connection({
 server.register({
 	register: require('hapi-cors'),
 	options: {
-		origins: ['http://localhost:8080']
+		origins: ['https://cryptobee.netlify.com']
 	}
 });
 
