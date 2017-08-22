@@ -12,12 +12,12 @@ server.connection({
 	port: process.env.PORT || 8888
 });
 
-server.register({
-	register: require('hapi-cors'),
-	options: {
-		origins: ['https://cryptobee.netlify.com']
-	}
-});
+// server.register({
+// 	register: require('hapi-cors'),
+// 	options: {
+// 		origins: process.env.ORIGINS || ['http://localhost:8080']
+// 	}
+// });
 
 // Add the route
 server.route({
